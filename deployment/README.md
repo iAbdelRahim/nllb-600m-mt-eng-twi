@@ -28,13 +28,8 @@ This folder contains the resources required for using the model via api
 1. either use docker :
 
     ```bash
-    docker compose up -d
-    docker compose logs
-    ```
-    go to the designed link and use the api in your browser
-
-    ```bash
-    http://localhost:80/docs
+    docker build -t <image_name>
+    docker run --name <container_name> <image_name>
     ```
 2. or run the uvicorn server localy (after installing all the dependencies )
     > python -m venv env

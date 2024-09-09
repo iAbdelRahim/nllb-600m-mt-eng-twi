@@ -1,8 +1,9 @@
 import json
 from enum import Enum
 from typing import Annotated, List
-from fastapi import FastAPI, Query
+from fastapi import FastAPI, Query, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
+
 
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, NllbTokenizerFast # , BitsAndBytesConfig
 import torch
@@ -78,3 +79,15 @@ def single_input(
     }   
 
     return data
+
+@app.post("/files/")
+async def create_file(file: Annotated[bytes, File(description="A file read as bytes")]):
+    
+    return {"file_size": len(file)}
+
+
+@app.post("/uploadfile/")
+async def create_upload_file(
+    file: Annotated[UploadFile, File(description="A file read as UploadFile")],
+):
+    return {"filename": file.filename}
